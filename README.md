@@ -4,16 +4,16 @@ Private Vercel Node.js API for Abhi Coin weekly paper reports. MongoDB stores ea
 
 ## Deploy on Vercel
 
-1. Import this folder as a new project. Framework: **Other**, Node.js **24.x**. No build command or output directory is needed. Vercel discovers `api/health.mjs` and `api/reports.mjs`.
-2. Set environment variables **MONGODB_URI**, **MONGODB_DB** (for example `stocksapp`), and **REPORT_API_TOKEN**. Generate a token locally with `npm run token` and keep it private. MongoDB credentials must never go in the mobile app or git.
-3. Permit the deployment to reach your MongoDB cluster, using your Atlas network policy. Deploy. `/api/health` checks the function is running; it deliberately does not claim the database is connected.
+1. Import the GitHub repository `Abhilashpal128/AbhiFNoServer` into Vercel with the repository root as the project root. Select **Other** as the framework and **Node.js 24.x** as the runtime. No build command or output directory is needed; Vercel discovers `api/health.mjs` and `api/reports.mjs`.
+2. In the Vercel project's Environment Variables settings, set **MONGODB_URI**, **MONGODB_DB** (for example `stocksapp`), and **REPORT_API_TOKEN** for the environments you will deploy. Generate a token locally with `npm run token` and keep it private. MongoDB credentials must never go in the mobile app or git.
+3. Permit the deployment to reach your MongoDB cluster, using your Atlas network policy. Deploy (and redeploy after changing environment variables). `/api/health` checks the function is running; it deliberately does not claim the database is connected.
 4. In the mobile app Settings, enter the `https://your-project.vercel.app` origin and the same report token. Save and sync. The Dashboard shows whether uploads were acknowledged by MongoDB. Leave these settings blank until deployment; local reports continue working.
 
 The report token is for this private deployment. All holders can access reports; this is not a multi-tenant public authentication system. Use one device as the writer for its account ID. Vercel deployment protection must allow the mobile API request; the API itself requires its bearer token.
 
 ## Local checks
 
-Run `npm ci`, `npm test`. Copy `.env.example` to `.env`, fill values, then `npm start`. Local server binds to localhost. Node tests exercise real HTTP requests against the handler with a memory test repository; an actual MongoDB connection requires your URI and is not covered by those tests.
+Run `npm ci`, `npm test`. Copy `.env.example` to `.env`, fill in the required values, then `npm start`. Keep `.env` local; it is ignored by git. Local server binds to localhost. Node tests exercise real HTTP requests against the handler with a memory test repository; an actual MongoDB connection requires your URI and is not covered by those tests.
 
 ## API
 
